@@ -7,6 +7,7 @@
 *.zip
 *.7z
 *.rar
+custom_data.zip
 .terraform/
 .ssh/
 id_rsa
