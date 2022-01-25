@@ -26,6 +26,7 @@ module "create-elastic" {
     tags                = "${var.tags}"
 }
 
+/*
 # Creates a Ubuntu 18.04 LTS host
 module "create-linux" {
     source              = "..\\modules\\create-linux-hosts"
@@ -38,6 +39,7 @@ module "create-linux" {
     file_path           = "${var.file_path}"
     tags                = "${var.tags}"
 }
+*/
 
 # Creates a Windows 10 host connected to the Lab network but NOT DOMAIN Joined
 module "create-custom-host1" {
@@ -52,6 +54,7 @@ module "create-custom-host1" {
    tags                 = "${var.tags}"
 }
 
+/*
 # Creates a Windows Server 2019 and Promotes it to a Domain controller for contoso.com
 module "create-domain-controller" {
    source                         = "..\\modules\\create-domain-controller"
@@ -83,3 +86,4 @@ module "create-windows-hosts" {
 
   depends_on       = [module.create-domain-controller]
 }
+*/

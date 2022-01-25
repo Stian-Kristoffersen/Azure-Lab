@@ -4,6 +4,9 @@
 *.terraform.lock.hcl
 *.terraform.tfstate.lock.info
 *.tfvars
+*.zip
+*.7z
+*.rar
 .terraform/
 .ssh/
 id_rsa
