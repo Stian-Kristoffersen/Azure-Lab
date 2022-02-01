@@ -1,0 +1,65 @@
+{
+    "variables": {
+      "deployment_code": "",
+      "resource_group": "",
+      "subscription_id": "",
+      "use_azure_cli_auth": "true",
+      "location": "Norway East",
+      "proxy": "",
+      "cloud_environment_name": "Public",
+      "virtual_network_name" : "",
+      "virtual_network_subnet_name" : "",
+      "virtual_network_resource_group_name" : "",
+      "username":"ubuntu"
+  
+    },
+    "builders": [
+      {
+        "type": "azure-arm",
+        "subscription_id": "{{user `subscription_id`}}",
+        "cloud_environment_name": "{{user `cloud_environment_name`}}",
+        "managed_image_resource_group_name": "{{user `resource_group`}}",
+        "managed_image_name": "Ubuntu_docker",
+        "managed_image_storage_account_type": "Premium_LRS",
+        
+        "os_type": "Linux",
+        "image_publisher": "Canonical",
+        "image_offer": "UbuntuServer",
+        "image_sku": "18.04-LTS",
+  
+        "location": "{{user `location`}}",
+        "vm_size": "Standard_DS1_v2",
+  
+        "async_resourcegroup_delete": true
+      }
+    ],
+    "provisioners": [
+        {
+          "type": "file",
+          "source": "./config/defaults.cfg",
+          "destination": "/tmp/defaults.cfg"
+        },
+        {
+          "type": "shell",
+          "inline": [
+            "sudo mv /tmp/defaults.cfg /etc/cloud/cloud.cfg.d/defaults.cfg"
+          ]
+        },
+        {
+          "execute_command": "echo '{{user `username`}}' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+          "script": "scripts/install_tools.sh",
+          "type": "shell"
+        },
+        {
+          "execute_command": "echo '{{user `username`}}' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+          "script": "scripts/setup.sh",
+          "type": "shell"
+        },
+        {
+          "execute_command": "echo '{{user `username`}}' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+          "script": "scripts/cleanup.sh",
+          "type": "shell"
+        }
+      ]
+  }
+  
